@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}topology{% endblock %}
+{% block topology_active %}class="active"{% endblock %}
+{% block contend %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <canvas id="viewport" width="1000" height="600"></canvas>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static',filename='js/jquery-2.1.4.js') }}"></script>
+<script src="{{ url_for('static',filename='js/arbor.js') }}"></script>
+<script src="{{ url_for('static',filename='js/arbor-tween.js') }}"></script>
+<script src="{{ url_for('static',filename='js/topology.js') }}"></script>
+<script>
+
+(function($){
+
+    $(document).ready(function(){
+        var topology = {{ topology | safe }};
+        var host = {{ host | safe }};
+
+        var sys = arbor.ParticleSystem(1000, 600, 0.5) ;// create the system with sensible repulsion/stiffness/friction
+        sys.parameters({gravity:true}); // use center-gravity to make the graph settle nicely (ymmv)
+        sys.renderer = Renderer("#viewport") ;// our newly created renderer will have its .init() method called shortly by sys...
+
+        for(var i = 0; i < topology.length; i++){
+            sys.addNode(topology[i].src.dpid, {type:1});
+            sys.addNode(topology[i].dst.dpid,{type:1});
+            sys.addEdge(topology[i].src.dpid, topology[i].dst.dpid)
+        }
+
+        for(var j = 0; j < host.length; j++){
+            sys.addNode(host[j].ipv4[0],{type:2});
+            sys.addEdge(host[j].ipv4[0],host[j].port.dpid);
+        }
+
+
+
+{#        $.get("php/topologyController.php",function(data){#}
+{#            var switchNum = data.switches.length;#}
+{#            var hostNum = data.hosts.length;#}
+{#            var linkNum = data.link.length;#}
+{#            for(var i=0; i < switchNum; i++)#}
+{#            {#}
+{#                sys.addNode(data.switches[i].id ,{type:1})#}
+{#            }#}
+{##}
+{#            for(var k=0; k <linkNum; k++ )#}
+{#            {#}
+{#                sys.addEdge(data.link[k].bid,data.link[k].eid);#}
+{#            }#}
+{#            if(hostNum !=0 )#}
+{#            {#}
+{#                for(var j=0 ; j < hostNum; j++)#}
+{#                {#}
+{#                    sys.addNode(data.hosts[j].id ,{type:2});#}
+{#                    sys.addEdge(data.hosts[j].id ,data.hosts[j].switchfor);#}
+{#                }#}
+{#            }#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#    },"json");#}
+
+
+
+    })})(this.jQuery)
+
+</script>
+{% endblock %}

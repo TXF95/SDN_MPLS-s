@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}host{% endblock %}
+{% block host_active %}class="active"{% endblock %}
+{% block contend %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+             <h3>主机</h3>
+            <table class="table table-bordered table-hover">
+
+            <thead>
+            <td>Mac地址</td>
+            <td>IP地址</td>
+            <td>所属交换机</td>
+            <td>连接端口</td>
+            <td>端口地址</td>
+            <td>端口ID</td>
+            </thead>
+            <tbody>
+            {% for host in host_dict %}
+                <tr>
+                    <td>{{ host['mac'] }}</td>
+                    <td>{{ host['ipv4'][0] }}</td>
+                    <td>{{ host['port']['dpid'] }}</td>
+                    <td>{{ host['port']['name'] }}</td>
+                    <td>{{ host['port']['hw_addr'] }}</td>
+                    <td>{{ host['port']['port_no'] | int }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

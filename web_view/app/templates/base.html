@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block refresh %} {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="nav navbar-nav navbar-header">
+            <a class="title">ryu控制器</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" {% block switch_active %}{% endblock %}><a href="{{ url_for('switch') }}">交换机</a></li>
+        <li role="presentation" {% block host_active %}{% endblock %}><a href="{{ url_for('host') }}">主机</a></li>
+        <li role="presentation" {% block topology_active %}{% endblock %} ><a href=" {{ url_for('topology') }} ">拓扑</a></li>
+    </ul>
+</div>
+<br>
+{% block contend %}
+{% endblock %}
+
+</body>
+</html>

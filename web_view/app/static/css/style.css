@@ -1,0 +1,91 @@
+.form-vertical {
+    margin-top: 80px;
+    text-align: left;
+}
+.form-vertical-register {
+    margin-top: 40px;
+    text-align: left;
+}
+a,a:hover,a:link,a:visited,a:active{
+    text-decoration:none;
+}
+body {
+    background-color: #f2f2f2;
+}
+.navbar-default > .container > .navbar-header > .title
+{
+    font-size: 24px;
+    line-height: 50px;
+    color: #222222;
+    text-align: center;
+    text-decoration: none;
+}
+
+.topology
+{
+    width: 1170px;
+    position: relative;
+
+}
+.rowHeight
+{
+    width: 1170px;
+    position: static;
+
+}
+
+.node
+{
+    text-align: center;
+    font-size: 10pt;
+    width: 60px;
+    height: 60px;
+    cursor:pointer;
+    position: absolute;
+}
+.switch
+{
+    width: 60px;
+    height: 20px;
+    left: 165px;
+    top:100px;
+    line-height: 60px;
+    background: url("../image/switch.png") no-repeat center;
+
+}
+.host
+{
+    width: 20px;
+    height: 30px;
+    line-height: 90px;
+    left: 0;
+    top:0;
+    background-image: url("../image/host.png");
+    background-size: 20px 30px ;
+}
+.switchLink:hover
+{
+    cursor: pointer;
+}
+
+.tips{
+    float: left;
+    color: rgba(0, 0, 0, 0.5);
+    padding-left: 15px;
+}
+.tips_true,.tips_false{
+    padding-left: 10px;
+}
+.tips_true{
+    color: green;
+}
+.tips_false{
+    color: red;
+}
+.log
+{
+    height: 300px;
+    background-color: #ffffff;
+    margin-top: 10px;
+    overflow-y: auto;
+}

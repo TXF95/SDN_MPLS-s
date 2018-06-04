@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}switch{% endblock %}
+{% block refresh %}<meta http-equiv="REFRESH" content="5"/>{% endblock %}
+{% block switch_active %}class="active"{% endblock %}
+{% block contend %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <h3>端口信息</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <td>端口ID</td>
+                    <td>端口名称</td>
+                    <td>MAC地址</td>
+                </thead>
+                <tbody>
+                {%  for port in portAndflow['port_dict'] %}
+                    <tr>
+                        <td>{{ port['port_no'] | int }}</td>
+                        <td>{{ port['name']  }}</td>
+                        <td>{{ port['hw_addr'] }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <br>
+            <h3>端口带宽</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <td>端口ID</td>
+                    <td>接收包数</td>
+                    <td>传输包数</td>
+                    <td>接收字节数</td>
+                    <td>传输字节数</td>
+                    <td>持续时间(秒)</td>
+                </thead>
+                <tbody>
+                {% for key in portAndflow['portbw_dict'] %}
+                    {% for portbw in portAndflow['portbw_dict'][key] %}
+                        <tr>
+                            <td>{{ portbw['port_no'] }}</td>
+                            <td>{{ portbw['rx_packets'] }}</td>
+                            <td>{{ portbw['tx_packets'] }}</td>
+                            <td>{{ portbw['rx_bytes'] }}</td>
+                            <td>{{ portbw['tx_bytes'] }}</td>
+                            <td>{{ portbw['duration_sec'] }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+
+            <br>
+            <h3>流表</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <td>匹配域</td>
+                    <td>优先级</td>
+                    <td>动作</td>
+                    <td>持续时间</td>
+                    <td>cookie</td>
+                    <td>计数</td>
+                    <td>table-id</td>
+                </thead>
+                <tbody>
+                    {% for key in portAndflow['flow_dict']  %}
+                        {% for flow in portAndflow['flow_dict'][key] %}
+                            <tr>
+                                <td>{{ flow['match'] | safe }}</td>
+                                <td>{{ flow['priority'] }}</td>
+                                <td>{{ flow['actions'] }}</td>
+                                <td>{{ flow['duration_sec'] }}</td>
+                                <td>{{ flow['cookie'] }}</td>
+                                <td>{{ flow['packet_count'] }}</td>
+                                <td>{{ flow['table_id'] }}</td>
+                            </tr>
+
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

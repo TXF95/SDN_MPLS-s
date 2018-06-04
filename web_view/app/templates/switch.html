@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}switch{% endblock %}
+{% block switch_active %}class="active"{% endblock %}
+{% block contend %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>交换机</h3>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <td>DPID</td>
+                <td>端口数量</td>
+                </thead>
+                <tbody>
+                {% for switch in switch_dict %}
+                    <tr>
+                        <td><a href="{{ url_for('portAndFlow', dpid = switch['dpid']) }}">{{ switch['dpid'] }}</a></td>
+                        <td>{{ switch['ports'] | length }}</td>
+
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
